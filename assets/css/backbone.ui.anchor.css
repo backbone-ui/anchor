@@ -1,0 +1,10 @@
+.ui-anchor {
+	position: fixed;
+	display: none;
+	bottom: 0;
+	right: 50px;
+}
+
+.ui-element-active {
+	display: block;
+}
