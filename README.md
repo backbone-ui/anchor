@@ -18,13 +18,22 @@ bower install backbone.ui.anchor
 
 ## Usage
 
-Load the css and js in your app. Then load the view on the appropriete container:
+Load the css and js in your app. Then load the view on the appropriate container:
 ```
 var view = new Backbone.UI.Anchor({
-	
+text: "Check this out"
 });
 ```
 
+## Options
+
+### position 
+Defaults to "bottom-right". Additional CSS classes have been set up to support "top-right", "top-left", "bottom-left", "left-middle" and "right-middle".
+
+
+### target
+Defaults to top of page.
+Optionally set the id of the element on the page you want to scroll to.
 
 ## Credits
 
