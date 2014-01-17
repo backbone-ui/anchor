@@ -1,8 +1,36 @@
 .ui-anchor {
 	position: fixed;
 	display: none;
+}
+
+.ui-anchor.bottom-right {
 	bottom: 0;
-	right: 50px;
+	right: 0;
+}
+
+.ui-anchor.top-right {
+	top: 0;
+	right: 0;
+}
+
+.ui-anchor.bottom-left {
+	bottom: 0;
+	left: 0;
+}
+
+.ui-anchor.top-left {
+	top: 0;
+	left: 0;
+}
+
+.ui-anchor.right-middle {
+	top: 50%;
+	right: 0;
+}
+
+.ui-anchor.left-middle {
+	top: 50%;
+	left: 0;
 }
 
 .ui-element-active {

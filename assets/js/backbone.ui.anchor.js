@@ -15,21 +15,21 @@
 	
 	Backbone.UI.Anchor = View.extend({
 		
-		el: function(){ return $('<'+ this.options.tagName +' class="ui-anchor '+ this.options.className + ' ' + this.options.position +'">'+ this.options.text +'</'+ this.options.tagName +'>') },
+		el: function(){ return $('<'+ this.options.tagName +' class="ui-anchor'+ this.options.className + ' ' + this.options.position + '">'+ this.options.text +'</'+ this.options.tagName +'>') },
 		
 		options : {
 			scroll : true,
-			className : "ron",
+			className : "",
 			tagName : "a",
-			text: "Back to top",
+			text: "",
 			scrollOffset : 0,
 			target: "0",
-			position: "bottom"
+			position: "bottom-right"
 		},
 		
 		events: {
 			"scroll" : "pageScroll",
-			"click"  : "backToTop"
+			"click"  : "scrollToTarget"
 		},
 		
 		initialize: function(model, options){
@@ -53,7 +53,7 @@
 			}
 		},
 		
-		backToTop: function() {
+		scrollToTarget: function() {
 			
 			if (this.options.target != "0") {
 				$("html, body").animate({scrollTop: $(this.options.target).offset().top}, 1000);
