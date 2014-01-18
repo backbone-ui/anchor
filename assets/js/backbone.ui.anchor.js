@@ -28,11 +28,11 @@
 		},
 
 		events: {
-			"scroll" : "pageScroll",
+			"scroll" : "pageScroll", // this isn't triggered when you scroll the page...
 			"click"  : "scrollToTarget"
 		},
 
-		initialize: function(model, options){
+		initialize: function(options){
 			$(this.el).appendTo('body');
 
 			_.bindAll(this, 'render', 'pageScroll');
@@ -40,6 +40,10 @@
 			this.options.scrollOffset = ( this.options.scrollOffset ) ? this.options.scrollOffset : $(window).height() ;
 
 			$(window).scroll(this.pageScroll);
+			// trigger on init
+			this.pageScroll();
+			// continue...
+			return View.prototype.initialize.call(this, options);
 
 		},
 
