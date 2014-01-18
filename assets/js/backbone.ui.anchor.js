@@ -23,7 +23,7 @@
 			tagName : "a",
 			text: "",
 			scrollOffset : 0,
-			target: "0",
+			target: false,
 			position: "bottom-right"
 		},
 
@@ -43,6 +43,7 @@
 
 		},
 
+		// can this be replaced by a common.js monitor?
 		pageScroll: function() {
 
 			if ($(window).scrollTop() > this.options.scrollOffset) {
@@ -54,13 +55,10 @@
 		},
 
 		scrollToTarget: function() {
-
-			if (this.options.target != "0") {
-				$("html, body").animate({scrollTop: $(this.options.target).offset().top}, 1000);
-			} else {
-				$("html, body").animate({scrollTop: this.options.target}, 1000);
-			}
-		},
+			// fallback to top
+			var scroll = (this.options.target ) ? $(this.options.target).offset().top: 0;
+			$("html, body").animate({scrollTop: scroll }, 1000);
+		}
 
 	});
 
