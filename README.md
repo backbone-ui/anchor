@@ -1,5 +1,4 @@
-anchor
-======
+# Backbone UI: Anchor
 
 An extension to topanchor for more fluid settings
 
@@ -27,7 +26,7 @@ text: "Check this out"
 
 ## Options
 
-### position 
+### position
 Defaults to "bottom-right". Additional CSS classes have been set up to support "top-right", "top-left", "bottom-left", "left-middle" and "right-middle".
 
 

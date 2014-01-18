@@ -1,10 +1,11 @@
-// Backbone.js Anchor extension
-//
-// Created by: Lyndel Thomas (@ryndel)
-// Source: https://github.com/backbone-ui/anchor
-//
-// Licensed under the MIT license:
-// http://makesites.org/licenses/MIT
+/* Backbone UI: Anchor
+ * Source: https://github.com/backbone-ui/anchor
+ * Copyright © Makesites.org
+ *
+ * Initiated by Lyndel Thomas (@ryndel)
+ * Distributed through [Makesites.org](http://makesites.org)
+ * Released under the [MIT license](http://makesites.org/licenses/MIT)
+ */
 
 (function(_, Backbone) {
 
