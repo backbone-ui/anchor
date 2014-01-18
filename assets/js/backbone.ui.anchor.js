@@ -24,6 +24,7 @@
 			text: "",
 			scrollOffset : 0,
 			target: false,
+			targetOffset : 0,
 			position: "bottom-right"
 		},
 
@@ -61,6 +62,7 @@
 		scrollToTarget: function() {
 			// fallback to top
 			var scroll = (this.options.target ) ? $(this.options.target).offset().top: 0;
+			scroll -= this.options.targetOffset;
 			$("html, body").animate({scrollTop: scroll }, 1000);
 		}
 
