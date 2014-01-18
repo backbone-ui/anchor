@@ -7,7 +7,7 @@
  * Released under the [MIT license](http://makesites.org/licenses/MIT)
  */
 
-(function(_, Backbone) {
+(function($, _, Backbone) {
 
 	// support for Backbone APP() view if available...
 	var isAPP = ( typeof APP !== "undefined" && typeof APP.View !== "undefined" );
@@ -94,4 +94,4 @@
 
 
 
-})(this._, this.Backbone);
+})(this.jQuery, this._, this.Backbone);
