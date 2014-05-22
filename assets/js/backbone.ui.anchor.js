@@ -7,17 +7,17 @@
  * Released under the [MIT license](http://makesites.org/licenses/MIT)
  */
 
-(function($, _, Backbone) {
+(function(window, $, _, Backbone, APP) {
 
 	// support for Backbone APP() view if available...
 	var isAPP = ( typeof APP !== "undefined" && typeof APP.View !== "undefined" );
-	var View = ( isAPP ) ? APP.View : Backbone.View;
+	var View = ( isAPP ) ? APP.Easing : Backbone.Easing;
 
 	var Anchor = View.extend({
 
 		el: function(){ return $('<'+ this.options.tagName +' class="ui-anchor'+ this.options.className + ' ' + this.options.position + '">'+ this.options.text +'</'+ this.options.tagName +'>') },
 
-		options : {
+		options : _.extend({}, View.prototype.options, {
 			scroll : true,
 			className : "",
 			tagName : "a",
@@ -26,10 +26,11 @@
 			target: false,
 			targetOffset : 0,
 			position: "bottom-right"
-		},
+		}),
 
 		events: {
-			"scroll" : "pageScroll", // this isn't triggered when you scroll the page...
+			//"scroll" : "pageScroll", // this isn't triggered when you scroll the page...
+			"click .scroll-link"  : "scrollToTarget",
 			"click"  : "scrollToTarget"
 		},
 
@@ -59,19 +60,48 @@
 			}
 		},
 
-		scrollToTarget: function() {
+		// Events
+
+		scrollToTarget: function( e ) {
+			e.preventDefault();
 			// fallback to top
-			var scroll = (this.options.target ) ? $(this.options.target).offset().top: 0;
-			scroll -= this.options.targetOffset;
-			$("html, body").animate({scrollTop: scroll }, 1000);
+			var target = $(e.target).closest("a").attr("href");
+			if( !target ) target = "body";
+
+			this.transitionStart( target );
+		},
+
+
+		transitionData: function( target ){
+			// variables
+			var now = _.now();
+			var scrollTop = this.targetEl.scrollTop;
+			var offset = $( target ).offset();
+
+			// record data
+			// only support vertical tween (for now)
+			return {
+				start: now,
+				end: now + (this.options.duration * 1000),
+				easing: easing[this.options.ease],
+				startPos: parseInt( scrollTop ),
+				endPos: parseInt( offset.top ),
+				pos: parseInt( scrollTop )
+			}
+		},
+
+		transitionPos: function( pos ){
+			if( !pos ){
+				// get
+				return this.targetEl.scrollTop;
+			} else {
+				//set
+				this.targetEl.scrollTop = pos;
+			}
 		}
 
 	});
 
-
-	// fallbacks
-	if( _.isUndefined( Backbone.UI ) ) Backbone.UI = {};
-	Backbone.UI.Anchor = Anchor;
 
 	// Support module loaders
 	if ( typeof module === "object" && module && typeof module.exports === "object" ) {
@@ -80,22 +110,24 @@
 	} else {
 		// Register as a named AMD module, used in Require.js
 		if ( typeof define === "function" && define.amd ) {
-			//define( "backbone.ui.scrollchange", [], function () { return Anchor; } );
-			//define( ['jquery', 'underscore', 'backbone'], function () { return Anchor; } );
-			define( [], function () { return Anchor; } );
+			//define("backbone.ui.anchor", ['jquery''underscore', 'backbone'], function(){ return Anchor; });
 		}
 	}
 	// If there is a window object, that at least has a document property
 	if ( typeof window === "object" && typeof window.document === "object" ) {
-		window.Backbone = Backbone;
 		// update APP namespace
-		if( typeof APP != "undefined" && (_.isUndefined( APP.UI ) || _.isUndefined( APP.UI.Anchor ) ) ){
+		if( isAPP ){
 			APP.UI = APP.UI || {};
-			APP.UI.Anchor = Backbone.UI.Anchor;
+			APP.UI.Anchor = Anchor;
+			// save namespace
 			window.APP = APP;
 		}
+		// update Backbone namespace regardless
+		Backbone.UI = Backbone.UI || {};
+		Backbone.UI.Anchor = Anchor;
+		window.Backbone = Backbone;
 	}
 
 
 
-})(this.jQuery, this._, this.Backbone);
+})(this.window, this.$, this._, this.Backbone, this.APP);
