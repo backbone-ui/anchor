@@ -1,6 +1,8 @@
 # Backbone UI: Anchor
 
-An extension to topanchor for more fluid settings
+An extension to scroll with easing between link anchors
+
+Ideally we would use CSS3 transitions but we're using requestAnimationFrame to clock the animations since scrollTop [isn't considered a CSS attribute](https://bugs.webkit.org/show_bug.cgi?id=93238).
 
 
 ## Dependencies
