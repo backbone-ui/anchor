@@ -1,0 +1,63 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Backbone UI: Scroll Link - Menu</title>
+
+	<style>
+
+		html, body, div {
+			margin: 0;
+			padding: 0;
+			width: 100%;
+			height: 100%;
+		}
+	</style>
+</head>
+<body>
+
+	<h1>Scroll Link</h1>
+	<p>Menu:</p>
+	<ul>
+		<li><a href="#one" class="scroll-link">One</a></li>
+		<li><a href="#two" class="scroll-link">Two</a></li>
+	</ul>
+
+	<div id="one">
+		<h2>One</h2>
+
+		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer viverra mauris ac tellus scelerisque ornare. In hac habitasse platea dictumst. Nam bibendum porta suscipit. In convallis tortor tellus, sed ultrices arcu molestie eget. Morbi eget condimentum purus. Morbi id pharetra lectus. Aenean dignissim nunc arcu, pulvinar porta sapien pellentesque mollis. Suspendisse leo dui, commodo at malesuada a, rhoncus vel ante. Etiam a consequat enim. Etiam eu lacinia dui, in lacinia velit. Nulla fermentum molestie lacus, at ultrices felis facilisis eget. Aliquam erat volutpat. Sed non elit vel dolor dictum suscipit. Curabitur vehicula egestas leo, id tempus lectus.</p>
+
+		<p>Donec blandit dui eu est mollis, sed tincidunt leo rutrum. Aliquam feugiat risus a quam sagittis, vel posuere ligula ullamcorper. Vivamus nibh erat, egestas at leo quis, tempor tincidunt est. In hac habitasse platea dictumst. Sed mollis, urna at dignissim lobortis, eros enim dignissim lacus, at condimentum nisi nunc sed risus. Duis vitae tellus velit. Maecenas scelerisque semper enim, id feugiat tortor lobortis a. Vivamus et nisi nibh.</p>
+
+		<p>Aliquam id sollicitudin tortor. Quisque neque dui, pulvinar ac congue sit amet, tristique elementum nulla. Vivamus non urna justo. Suspendisse a erat faucibus, imperdiet tellus sed, volutpat nisl. Mauris at justo sit amet lectus hendrerit malesuada id eget libero. Fusce non velit quis libero vehicula feugiat sit amet ac magna. Integer faucibus enim id velit aliquet sollicitudin. Nunc sed facilisis leo.</p>
+
+	</div>
+
+	<div id="two">
+		<h2>Two</h2>
+
+		<p>Nunc porttitor porta leo convallis mollis. Donec accumsan, lacus vitae ultrices malesuada, erat ante gravida augue, eget posuere mi odio eget diam. Cras in volutpat tellus, a pharetra tortor. Donec dictum arcu quis tellus pharetra, non pellentesque eros consectetur. In imperdiet at libero sed sagittis. Donec tortor lacus, aliquet nec elementum eget, pretium at urna. Nullam et metus bibendum, tincidunt dolor eu, aliquet sapien. Sed commodo faucibus molestie. Nullam mollis eros vel elit aliquam iaculis. In porta, est in euismod fermentum, lorem lorem accumsan felis, et bibendum nisl odio quis eros. Cras bibendum, nulla et tincidunt viverra, eros enim malesuada purus, eu suscipit neque turpis ac nulla. Proin convallis sapien in porta laoreet.</p>
+
+		<p>Morbi risus ligula, venenatis a lacus ut, malesuada pulvinar erat. Vestibulum ac tincidunt lectus. Phasellus id turpis urna. Phasellus ultrices id mi eget ornare. In tincidunt eget felis tempus viverra. Aliquam erat volutpat. Curabitur porta faucibus placerat. Praesent placerat adipiscing urna, at luctus ante aliquam at. Vivamus interdum mauris facilisis, feugiat libero ut, tincidunt augue. Nulla sodales nibh eu elementum gravida. Nulla ultricies facilisis purus, vel eleifend diam elementum at. Vivamus at eros malesuada, congue lorem sed, adipiscing leo.</p>
+
+	</div>
+
+
+<!-- dependencies -->
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.6.0/underscore-min.js"></script>
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/backbone.js/1.1.2/backbone-min.js"></script>
+<script type="text/javascript" src="//rawgit.com/makesites/backbone-easing/master/backbone.easing.js"></script>
+
+<!-- plugin -->
+<script type="text/javascript" src="../assets/js/backbone.ui.anchor.js"></script>
+
+<!-- example logic -->
+<script type="text/javascript">
+	// initiate link scroll
+	var view = new Backbone.UI.Anchor({ el: "body" });
+</script>
+
+</body>
+</html>
