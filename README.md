@@ -2,9 +2,16 @@
 
 An extension to topanchor for more fluid settings
 
+
+## Dependencies
+
+* [Backbone Easing](http://github.com/makesites/backbone-easing)
+
+
 ## Examples
 
-* [Static](http://rawgithub.com/backbone-ui/anchor/master/examples/static.html)
+* [Static](http://rawgit.com/backbone-ui/anchor/master/examples/static.html)
+* [Menu](http://rawgit.com/backbone-ui/anchor/master/examples/menu.html)
 
 
 ## Install
@@ -29,10 +36,10 @@ text: "Check this out"
 ### position
 Defaults to "bottom-right". Additional CSS classes have been set up to support "top-right", "top-left", "bottom-left", "left-middle" and "right-middle".
 
-
 ### target
 Defaults to top of page.
 Optionally set the id of the element on the page you want to scroll to.
+
 
 ## Credits
 
