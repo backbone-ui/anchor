@@ -30,8 +30,8 @@
 
 		events: {
 			//"scroll" : "pageScroll", // this isn't triggered when you scroll the page...
-			"click .scroll-link"  : "scrollToTarget",
-			"click"  : "scrollToTarget"
+			"click .scroll-link": "scrollToTarget",
+			"click": "scrollToTarget"
 		},
 
 		initialize: function(options){
@@ -80,7 +80,7 @@
 
 			// record data
 			// only support vertical tween (for now)
-			return {
+			var data = {
 				start: now,
 				end: now + (this.options.duration * 1000),
 				easing: easing[this.options.ease],
@@ -88,6 +88,8 @@
 				endPos: parseInt( offset.top ),
 				pos: parseInt( scrollTop )
 			}
+			this._transitionData = data;
+			return data;
 		},
 
 		transitionPos: function( pos ){
