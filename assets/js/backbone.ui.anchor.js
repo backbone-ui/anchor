@@ -35,7 +35,9 @@
 		},
 
 		initialize: function(options){
-			$(this.el).appendTo('body');
+			if (!options.el) {
+				$(this.el).appendTo('body');
+			}
 
 			_.bindAll(this, 'render', 'pageScroll');
 
