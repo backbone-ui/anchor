@@ -32,11 +32,11 @@
 
 	var Anchor = View.extend({
 
-		el: function(){ return $('<'+ this.options.tagName +' class="ui-anchor'+ this.options.className + ' ' + this.options.position + '">'+ this.options.text +'</'+ this.options.tagName +'>') },
+		el: function(){ return $('<'+ this.options.tagName +' class="ui-anchor '+ this.options.className + ' ' + this.options.position + '">'+ this.options.text +'</'+ this.options.tagName +'>') },
 
 		options : _.extend({}, View.prototype.options, {
 			scroll : true,
-			className : "",
+			//className : "", // this is optional
 			tagName : "a",
 			text: "",
 			scrollOffset : 0,
@@ -48,7 +48,7 @@
 		events: {
 			//"scroll" : "pageScroll", // this isn't triggered when you scroll the page...
 			"click .scroll-link": "scrollToTarget",
-			"click": "scrollToTarget"
+			"click": "scrollToTarget" // duplicate event, pick one of the two with options...
 		},
 
 		initialize: function(options){
@@ -85,7 +85,8 @@
 		scrollToTarget: function( e ) {
 			e.preventDefault();
 			// find target
-			var target = $(e.target).closest("a").attr("href");
+			var $link = $(e.target).closest("a");
+			var target = (this.options.target) ? $link.attr( this.options.target ) : $link.attr("href");
 			// fallback to _top_
 			if( !target ) target = "body";
 
