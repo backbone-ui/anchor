@@ -1,4 +1,5 @@
-/* Backbone UI: Anchor
+/*
+ * Backbone UI: Anchor
  * Source: https://github.com/backbone-ui/anchor
  * Copyright © Makesites.org
  *
@@ -7,11 +8,27 @@
  * Released under the [MIT license](http://makesites.org/licenses/MIT)
  */
 
-(function(window, $, _, Backbone, APP) {
+(function (lib) {
+
+	//"use strict";
+
+	if (typeof define === 'function' && define.amd) {
+		// AMD. Register as an anonymous module.
+		var deps = ['jquery', 'underscore', 'backbone']; // condition when backbone.app is part of the array?
+		define(deps, lib);
+	} else if ( typeof module === "object" && module && typeof module.exports === "object" ){
+		// Expose as module.exports in loaders that implement CommonJS module pattern.
+		module.exports = lib;
+	} else {
+		// Browser globals
+		var Query = window.jQuery || window.Zepto || window.vQuery;
+		lib(Query, window._, window.Backbone, window.APP);
+	}
+}(function ($, _, Backbone, APP) {
 
 	// support for Backbone APP() view if available...
-	var isAPP = ( typeof APP !== "undefined" && typeof APP.View !== "undefined" );
-	var View = ( isAPP ) ? APP.Easing : Backbone.Easing;
+	var isAPP = ( typeof APP !== "undefined" );
+	var View = ( isAPP && typeof APP.Easing !== "undefined" ) ? APP.Easing : Backbone.Easing;
 
 	var Anchor = View.extend({
 
@@ -35,11 +52,14 @@
 		},
 
 		initialize: function(options){
-			$(this.el).appendTo('body');
-
+			options = options || {};
+			if( !options.el ){
+				// create a new element
+				$(this.el).appendTo('body');
+			}
 			_.bindAll(this, 'render', 'pageScroll');
 
-			this.options.scrollOffset = ( this.options.scrollOffset ) ? this.options.scrollOffset : $(window).height() ;
+			this.options.scrollOffset = ( this.options.scrollOffset ) ? this.options.scrollOffset : window.innerHeight;
 
 			$(window).scroll(this.pageScroll);
 			// trigger on init
@@ -64,8 +84,9 @@
 
 		scrollToTarget: function( e ) {
 			e.preventDefault();
-			// fallback to top
+			// find target
 			var target = $(e.target).closest("a").attr("href");
+			// fallback to _top_
 			if( !target ) target = "body";
 
 			this.transitionStart( target );
@@ -100,36 +121,46 @@
 				//set
 				this.targetEl.scrollTop = pos;
 			}
+		},
+
+		transitionStart: function( target ){
+			//save target reference
+			this.__target = target;
+			return View.prototype.transitionStart.call(this, target);
+		},
+
+		transitionEnd: function(){
+			var target = this.__target;
+			// FIX: Remove any existing hash
+			if( "body" == target && !_.isEmpty(window.location.hash) ){
+				app.navigate("#", false);
+				//window.location.hash = '';
+			}
+			return View.prototype.transitionEnd.call(this);
 		}
 
 	});
 
 
-	// Support module loaders
-	if ( typeof module === "object" && module && typeof module.exports === "object" ) {
-		// Expose as module.exports in loaders that implement CommonJS module pattern.
-		module.exports = Anchor;
-	} else {
-		// Register as a named AMD module, used in Require.js
-		if ( typeof define === "function" && define.amd ) {
-			//define("backbone.ui.anchor", ['jquery''underscore', 'backbone'], function(){ return Anchor; });
-		}
+	// update Backbone namespace regardless
+	Backbone.UI = Backbone.UI ||{};
+	Backbone.UI.Anchor = Anchor;
+	if( isAPP ){
+		APP.UI = APP.UI || {};
+		APP.UI.Anchor = Backbone.UI.Anchor;
 	}
+
 	// If there is a window object, that at least has a document property
 	if ( typeof window === "object" && typeof window.document === "object" ) {
 		// update APP namespace
 		if( isAPP ){
-			APP.UI = APP.UI || {};
-			APP.UI.Anchor = Anchor;
-			// save namespace
 			window.APP = APP;
 		}
-		// update Backbone namespace regardless
-		Backbone.UI = Backbone.UI || {};
-		Backbone.UI.Anchor = Anchor;
 		window.Backbone = Backbone;
 	}
 
+	// for module loaders:
+	return Anchor;
 
 
-})(this.window, this.$, this._, this.Backbone, this.APP);
+}));
