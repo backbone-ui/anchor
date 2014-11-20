@@ -97,7 +97,7 @@
 		transitionData: function( target ){
 			// variables
 			var now = _.now();
-			var scrollTop = this.targetEl.scrollTop;
+			var scrollTop = $(this.targetEl).scrollTop(); //this.targetEl.scrollTop;
 			var offset = $( target ).offset();
 
 			// record data
@@ -117,10 +117,12 @@
 		transitionPos: function( pos ){
 			if( !pos ){
 				// get
-				return this.targetEl.scrollTop;
+				return $(this.targetEl).scrollTop();
+				//return this.targetEl.scrollTop;
 			} else {
 				//set
-				this.targetEl.scrollTop = pos;
+				$(this.targetEl).scrollTop(pos);
+				//this.targetEl.scrollTop = pos;
 			}
 		},
 
