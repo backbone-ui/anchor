@@ -32,6 +32,19 @@ html, body {
 	margin-right: 0px;
 }
 
+.ui-anchor:before {
+	content: "\003e";
+	
+	-webkit-transform: rotate3d(0,0,1,-90deg);
+	-o-transform: rotate3d(0,0,1,-90deg);
+	-ms-transform: rotate3d(0,0,1,-90deg);
+	-moz-transform: rotate3d(0,0,1,-90deg);
+	transform: rotate3d(0,0,1,-90deg);
+    	
+    	font-weight: bold;
+	font-size: 2em;
+}
+
 </style>
 </head>
 <body>
@@ -61,7 +74,7 @@ Organic Pinterest Bushwick Tonx ethical, Neutra pop-up wolf. Leggings narwhal di
 	<!-- example logic -->
 	<script type="text/javascript">
 		// instantiate view
-		var view = new Backbone.UI.Anchor({text: "Back to top", target:"#ui-target"});
+		var view = new Backbone.UI.Anchor({text: "", target:"#ui-target"});
 	</script>
 
 </body></html>
