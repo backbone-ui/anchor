@@ -36,7 +36,7 @@
 
 		options : _.extend({}, View.prototype.options, {
 			scroll : true,
-			//className : "", // this is optional
+			className : "",
 			tagName : "a",
 			text: "",
 			scrollOffset : 0,
@@ -154,7 +154,7 @@
 	}
 
 	// If there is a window object, that at least has a document property
-	if ( typeof window === "object" && typeof window.document === "object" ) {
+	if( typeof window === "object" && typeof window.document === "object" ){
 		// update APP namespace
 		if( isAPP ){
 			window.APP = APP;
