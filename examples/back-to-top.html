@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Backbone UI Anchor</title>
+<title>Backbone UI: Anchor</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black">
@@ -30,6 +30,20 @@ html, body {
 	text-align: center;
 	cursor: pointer;
 	margin-right: 0px;
+}
+
+.ui-anchor:before {
+	display: inline-block;
+	content: "\003e";
+	
+	-webkit-transform: rotate3d(0,0,1,-90deg);
+	-o-transform: rotate3d(0,0,1,-90deg);
+	-ms-transform: rotate3d(0,0,1,-90deg);
+	-moz-transform: rotate3d(0,0,1,-90deg);
+	transform: rotate3d(0,0,1,-90deg);
+    	
+    	font-weight: bold;
+	font-size: 2em;
 }
 
 </style>
@@ -61,7 +75,7 @@ Organic Pinterest Bushwick Tonx ethical, Neutra pop-up wolf. Leggings narwhal di
 	<!-- example logic -->
 	<script type="text/javascript">
 		// instantiate view
-		var view = new Backbone.UI.Anchor({text: "Back to top", target:"#ui-target"});
+		var view = new Backbone.UI.Anchor({text: "", target:"#ui-target"});
 	</script>
 
 </body></html>

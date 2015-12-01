@@ -14,8 +14,8 @@
 
 	if (typeof define === 'function' && define.amd) {
 		// AMD. Register as an anonymous module.
-		var deps = ['jquery', 'underscore', 'backbone']; // condition when backbone.app is part of the array?
-		define(deps, lib);
+		var deps = ['jquery', 'underscore', 'backbone', 'backbone.easing']; // condition when backbone.app is part of the array?
+		define('backbone.ui.anchor', deps, lib);
 	} else if ( typeof module === "object" && module && typeof module.exports === "object" ){
 		// Expose as module.exports in loaders that implement CommonJS module pattern.
 		module.exports = lib;
@@ -38,7 +38,7 @@
 			scroll : true,
 			className : "",
 			tagName : "a",
-			text: "",
+			text: "back to top",
 			scrollOffset : 0,
 			target: false,
 			targetOffset : 0,
@@ -105,7 +105,7 @@
 			var data = {
 				start: now,
 				end: now + (this.options.duration * 1000),
-				easing: easing[this.options.ease],
+				easing: this.tween(this.options.ease),
 				startPos: parseInt( scrollTop ),
 				endPos: parseInt( offset.top ),
 				pos: parseInt( scrollTop )
