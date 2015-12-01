@@ -117,7 +117,10 @@
 		transitionPos: function( pos ){
 			if( !pos ){
 				// get
-				return $(this.targetEl).scrollTop();
+				var scroll = $(this.targetEl).scrollTop();
+				// FIX: retina displays might return fractions...
+				scroll = Math.floor(scroll);
+				return scroll;
 				//return this.targetEl.scrollTop;
 			} else {
 				//set
