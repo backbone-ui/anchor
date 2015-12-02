@@ -32,7 +32,7 @@
 
 	// Shims
 	// parent inheritance from Backbone.APP
-	var parent=function(a,b){this.__inherit=this.__inherit||[];var c=this.__inherit[a]||this._parent||View||Backbone.View,d=c.prototype[a]||function(){delete this.__inherit[a]},e=b instanceof Array?b:[b];return this.__inherit[a]=c.prototype._parent||function(){},d.apply(this,e)};
+	var parent=function(a,b){if(a=a||"",b=b||{},_.isUndefined(c))var c=null;if(_.isUndefined(d))var d=null;if(_.isUndefined(e))var e={View:null};this.__inherit=this.__inherit||[];var f=this.__inherit[a]||this._parent||c||d||e.View||Backbone.View,g=f.prototype[a]||function(){delete this.__inherit[a]},h=b instanceof Array?b:[b];return this.__inherit[a]=f.prototype._parent||function(){},g.apply(this,h)};
 
 
 	var Anchor = View.extend({
