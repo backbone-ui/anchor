@@ -30,7 +30,14 @@
 	var isAPP = ( typeof APP !== "undefined" );
 	var View = ( isAPP && typeof APP.Easing !== "undefined" ) ? APP.Easing : Backbone.Easing;
 
+	// Shims
+	// parent inheritance from Backbone.APP
+	var parent=function(a,b){this.__inherit=this.__inherit||[];var c=this.__inherit[a]||this._parent||Parent||View||APP.View||Backbone.View,d=c.prototype[a]||function(){delete this.__inherit[a]},e=b instanceof Array?b:[b];return this.__inherit[a]=c.prototype._parent||function(){},d.apply(this,e)};
+
+
 	var Anchor = View.extend({
+
+		name: "anchor",
 
 		el: function(){ return $('<'+ this.options.tagName +' class="ui-anchor '+ this.options.className + ' ' + this.options.position + '">'+ this.options.text +'</'+ this.options.tagName +'>') },
 
@@ -65,8 +72,7 @@
 			// trigger on init
 			this.pageScroll();
 			// continue...
-			return View.prototype.initialize.call(this, options);
-
+			return this.parent('initialize', options);
 		},
 
 		// can this be replaced by a common.js monitor?
@@ -143,7 +149,12 @@
 				//window.location.hash = '';
 			}
 			return View.prototype.transitionEnd.call(this);
-		}
+		},
+
+		// Helpers
+
+		// call methods from the parent
+		parent: View.prototype.parent || parent,
 
 	});
 
@@ -167,6 +178,7 @@
 
 	// for module loaders:
 	return Anchor;
+
 
 
 }));
