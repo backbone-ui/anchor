@@ -1,0 +1,29 @@
+{
+	"name": "backbone.ui.anchor",
+	"version": "0.2.0",
+	"description": "An extension to scroll with easing between link anchors",
+	"authors": [
+		"Lyndel Thomas <lyndelt@gmail.com>",
+		"Makis Tracend <makis@makesit.es>"
+	],
+	"license": "MIT",
+	"keywords": [
+		"backbone",
+		"ui",
+		"scroll",
+		"anchor"
+	],
+	"repository": {
+		"type": "git",
+		"url": "git://github.com/backbone-ui/anchor.git"
+	},
+	"ignore": [
+		"node_modules"
+	],
+	"main": ["./assets/js/backbone.ui.anchor.js"],
+	"dependencies": {
+		"backbone" : "1.1.2",
+		"underscore" : "1.8.3",
+		"jquery" : ">2.0.0"
+	}
+}
