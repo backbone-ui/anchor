@@ -46,6 +46,7 @@
 			className : "",
 			tagName : "a",
 			text: "back to top",
+			scrollLink : null,
 			scrollOffset : 0,
 			target: false,
 			targetOffset : 0,
@@ -54,8 +55,8 @@
 
 		events: {
 			//"scroll" : "pageScroll", // this isn't triggered when you scroll the page...
-			"click .scroll-link": "scrollToTarget",
-			"click": "scrollToTarget" // duplicate event, pick one of the two with options...
+			//"click .scroll-link": "scrollToTarget",
+			//"click": "scrollToTarget" // duplicate event, pick one of the two with options...
 		},
 
 		initialize: function(options){
@@ -64,7 +65,7 @@
 				// create a new element
 				$(this.el).appendTo('body');
 			}
-			_.bindAll(this, 'render', 'pageScroll');
+			_.bindAll(this, 'render', 'pageScroll', 'scrollToTarget');
 
 			this.options.scrollOffset = ( this.options.scrollOffset ) ? this.options.scrollOffset : window.innerHeight;
 
@@ -75,8 +76,16 @@
 			return this.parent('initialize', options);
 		},
 
+		postRender: function(){
+			// event trigger
+			var $el = (this.options.scrollLink) ? $(this.el).find(this.options.scrollLink) : $(this.el);
+			$el.on('click', _.bind(this.scrollToTarget, this) ); // bindAll fail
+			// continue...
+			return this.parent('postRender', {});
+		},
+
 		// can this be replaced by a common.js monitor?
-		pageScroll: function() {
+		pageScroll: function(){
 
 			if ($(window).scrollTop() > this.options.scrollOffset) {
 
@@ -88,7 +97,7 @@
 
 		// Events
 
-		scrollToTarget: function( e ) {
+		scrollToTarget: function( e ){
 			e.preventDefault();
 			// find target
 			var $link = $(e.target).closest("a");
