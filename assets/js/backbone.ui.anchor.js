@@ -46,10 +46,11 @@
 			className : "",
 			tagName : "a",
 			text: "back to top",
-			scrollLink : null,
-			scrollOffset : 0,
+			scrollLink: null,
+			scrollOffset: 0,
+			scrollUpdateHash: false,
 			target: false,
-			targetOffset : 0,
+			targetOffset: 0,
 			position: "bottom-right"
 		}),
 
@@ -155,8 +156,11 @@
 			if( "body" == target && !_.isEmpty(window.location.hash) ){
 				app.navigate("#", false);
 				//window.location.hash = '';
+			} else if(this.options.scrollUpdateHash) {
+				// update hash URLs
+				app.navigate(target, false);
 			}
-			return View.prototype.transitionEnd.call(this);
+			return this.parent('transitionEnd', {});
 		},
 
 		// Helpers
