@@ -62,6 +62,8 @@
 
 		initialize: function(options){
 			options = options || {};
+			// put this in render?
+			if( options.text ) $(this.el).html(options.text);
 			if( !options.el ){
 				// create a new element
 				$(this.el).appendTo('body');
@@ -89,7 +91,6 @@
 		pageScroll: function(){
 
 			if ($(window).scrollTop() > this.options.scrollOffset) {
-
 				$(this.el).addClass('ui-element-active');
 			} else {
 				$(this.el).removeClass('ui-element-active');
@@ -112,7 +113,8 @@
 		transitionData: function( target ){
 			// variables
 			var now = _.now();
-			var scrollTop = $(this.targetEl).scrollTop(); //this.targetEl.scrollTop;
+			var target = this.__target;
+			var scrollTop = $( target ).scrollTop();
 			var offset = $( target ).offset();
 
 			// record data
@@ -121,26 +123,25 @@
 				start: now,
 				end: now + (this.options.duration * 1000),
 				easing: this.tween(this.options.ease),
-				startPos: parseInt( scrollTop ),
-				endPos: parseInt( offset.top ),
-				pos: parseInt( scrollTop )
+				startPos: Math.round( scrollTop ),
+				endPos: Math.round( offset.top ),
+				pos: Math.round( scrollTop )
 			}
 			this._transitionData = data;
 			return data;
 		},
 
 		transitionPos: function( pos ){
+			var target = this.__target;
 			if( !pos ){
 				// get
-				var scroll = $(this.targetEl).scrollTop();
+				var scroll = $(target).scrollTop();
 				// FIX: retina displays might return fractions...
-				scroll = Math.floor(scroll);
+				scroll = Math.round(scroll);
 				return scroll;
-				//return this.targetEl.scrollTop;
 			} else {
 				//set
-				$(this.targetEl).scrollTop(pos);
-				//this.targetEl.scrollTop = pos;
+				$(target).scrollTop(pos);
 			}
 		},
 
