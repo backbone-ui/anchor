@@ -13,6 +13,7 @@ Ideally we would use CSS3 transitions but we're using requestAnimationFrame to c
 ## Examples
 
 * [Single Anchor](http://rawgit.com/backbone-ui/anchor/master/examples/single-anchor.html)
+* [Back to top](http://rawgit.com/backbone-ui/anchor/master/examples/back-to-top.html)
 * [Menu](http://rawgit.com/backbone-ui/anchor/master/examples/menu.html)
 
 
