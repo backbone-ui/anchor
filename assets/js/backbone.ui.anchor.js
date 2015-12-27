@@ -77,14 +77,23 @@
 			$(window).scroll(this.pageScroll);
 			// trigger on init
 			this.pageScroll();
+			// setup events
+			this.setupEvents( options );
 			// continue...
 			return this.parent('initialize', options);
 		},
 
-		postRender: function(){
+		setupEvents: function( options ){
+			// variables
+			scrollLink = options.scrollLink || this.options.scrollLink || null;
 			// event trigger
-			var $el = (this.options.scrollLink) ? $(this.el).find(this.options.scrollLink) : $(this.el);
+			var $el = (scrollLink) ? $(this.el).find(scrollLink) : $(this.el);
 			$el.on('click', _.bind(this.scrollToTarget, this) ); // bindAll fail
+		},
+
+		postRender: function(){
+			// reset events...
+			this.setupEvents( this.options );
 			// continue...
 			return this.parent('postRender', {});
 		},
