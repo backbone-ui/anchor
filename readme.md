@@ -12,7 +12,7 @@ Ideally we would use CSS3 transitions but we're using requestAnimationFrame to c
 
 ## Examples
 
-* [Static](http://rawgit.com/backbone-ui/anchor/master/examples/static.html)
+* [Single Anchor](http://rawgit.com/backbone-ui/anchor/master/examples/single-anchor.html)
 * [Menu](http://rawgit.com/backbone-ui/anchor/master/examples/menu.html)
 
 
@@ -50,5 +50,3 @@ Initiated by Lyndel Thomas ( [@ryndel](http://github.com/ryndel) )
 Distributed through [Makesites.org](http://makesites.org/)
 
 Released under the [MIT license](http://makesites.org/licenses/MIT)
-
-
