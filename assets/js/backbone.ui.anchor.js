@@ -46,10 +46,12 @@
 			className : "",
 			tagName : "a",
 			text: "back to top",
+			scrollEl: false,
 			scrollLink: null,
 			scrollOffset: 0,
 			scrollUpdateHash: false,
 			target: false,
+			targetEl: false,
 			targetOffset: 0,
 			position: "bottom-right"
 		}),
@@ -102,8 +104,17 @@
 		scrollToTarget: function( e ){
 			e.preventDefault();
 			// find target
-			var $link = $(e.target).closest("a");
-			var target = (this.options.target) ? $link.attr( this.options.target ) : $link.attr("href");
+			var $link = $(e.target).closest("a"),
+				target;
+			if(this.options.target){
+				// target is a an attribute
+				target = $link.attr( this.options.target );
+			} else if(this.options.targetEl) {
+				// goto a "fixed" element
+				target = this.options.targetEl;
+			} else {
+				target = $link.attr("href");
+			}
 			// fallback to _top_
 			if( !target ) target = "body";
 
@@ -114,7 +125,8 @@
 			// variables
 			var now = _.now();
 			var target = this.__target;
-			var scrollTop = $( target ).scrollTop();
+			var $scrollEl = this.__$scrollEl;
+			var scrollTop = $scrollEl.scrollTop();
 			var offset = $( target ).offset();
 
 			// record data
@@ -132,22 +144,24 @@
 		},
 
 		transitionPos: function( pos ){
-			var target = this.__target;
+			var $scrollEl = this.__$scrollEl;
 			if( !pos ){
 				// get
-				var scroll = $(target).scrollTop();
+				var scroll = $scrollEl.scrollTop();
 				// FIX: retina displays might return fractions...
 				scroll = Math.round(scroll);
 				return scroll;
 			} else {
 				//set
-				$(target).scrollTop(pos);
+				$scrollEl.scrollTop(pos);
 			}
 		},
 
 		transitionStart: function( target ){
 			//save target reference
 			this.__target = target;
+			// scrollable target is either defined or
+			this.__$scrollEl = (this.options.scrollEl) ? $(this.options.scrollEl) : $("body");
 			return View.prototype.transitionStart.call(this, target);
 		},
 
