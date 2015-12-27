@@ -101,7 +101,8 @@
 		// can this be replaced by a common.js monitor?
 		pageScroll: function(){
 
-			if ($(window).scrollTop() > this.options.scrollOffset) {
+			var $scrollEl = this.__$scrollEl || $('body');
+			if ( $scrollEl.scrollTop() > this.options.scrollOffset ) {
 				$(this.el).addClass('ui-element-active');
 			} else {
 				$(this.el).removeClass('ui-element-active');
