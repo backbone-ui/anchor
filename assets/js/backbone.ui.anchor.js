@@ -85,7 +85,7 @@
 
 		setupEvents: function( options ){
 			// variables
-			scrollLink = options.scrollLink || this.options.scrollLink || null;
+			var scrollLink = options.scrollLink || this.options.scrollLink || null;
 			// event trigger
 			var $el = (scrollLink) ? $(this.el).find(scrollLink) : $(this.el);
 			$el.on('click', _.bind(this.scrollToTarget, this) ); // bindAll fail
