@@ -24,7 +24,7 @@
 		var Query = window.jQuery || window.Zepto || window.vQuery;
 		lib(Query, window._, window.Backbone, window.APP);
 	}
-}(function ($, _, Backbone, APP) {
+}(function ($, _, Backbone, Easing) {
 
 	// support for Backbone APP() view if available...
 	APP = APP || window.APP || null;
@@ -53,7 +53,8 @@
 			target: false,
 			targetEl: false,
 			targetOffset: 0,
-			position: "bottom-right"
+			position: "bottom-right",
+			renderEl: true
 		}),
 
 		events: {
@@ -64,36 +65,42 @@
 
 		initialize: function(options){
 			options = options || {};
+			// extend defaults
+			this.options = _.extend({}, this.options, options);
 			// put this in render?
-			if( options.text ) $(this.el).html(options.text);
-			if( !options.el ){
+			if( this.options.renderEl ){
+				if( this.options.text ) $(this.el).html(this.options.text);
 				// create a new element
 				$(this.el).appendTo('body');
 			}
 			_.bindAll(this, 'render', 'pageScroll', 'scrollToTarget');
 
 			this.options.scrollOffset = ( this.options.scrollOffset ) ? this.options.scrollOffset : window.innerHeight;
-
+			// scroll event
 			$(window).scroll(this.pageScroll);
 			// trigger on init
 			this.pageScroll();
 			// setup events
-			this.setupEvents( options );
+			this.setupEvents();
 			// continue...
 			return this.parent('initialize', options);
 		},
 
 		setupEvents: function( options ){
 			// variables
-			var scrollLink = options.scrollLink || this.options.scrollLink || null;
+			var scrollLink = this.options.scrollLink || null;
+			var target = (scrollLink) ? " "+ scrollLink : "";
+			this.events['click'+ target] = "scrollToTarget";
+			/*
 			// event trigger
 			var $el = (scrollLink) ? $(this.el).find(scrollLink) : $(this.el);
 			$el.on('click', _.bind(this.scrollToTarget, this) ); // bindAll fail
+			*/
 		},
 
 		postRender: function(){
 			// reset events...
-			this.setupEvents( this.options );
+			this.setupEvents();
 			// continue...
 			return this.parent('postRender', {});
 		},
