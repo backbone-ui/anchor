@@ -27,7 +27,7 @@
 }(function ($, _, Backbone, Easing) {
 
 	// support for Backbone APP() view if available...
-	APP = APP || window.APP || null;
+	var APP = window.APP || null;
 	var isAPP = ( APP !== null );
 	var View = ( isAPP && typeof APP.Easing !== "undefined" ) ? APP.Easing : Backbone.Easing;
 
@@ -211,7 +211,6 @@
 	}
 
 	// If there is a window object, that at least has a document property
-	/* FIX: APP is not the same as window.APP (extending easing...)
 	if( typeof window === "object" && typeof window.document === "object" ){
 		// update APP namespace
 		if( isAPP ){
@@ -219,7 +218,6 @@
 		}
 		window.Backbone = Backbone;
 	}
-	*/
 	// for module loaders:
 	return Anchor;
 
