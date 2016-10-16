@@ -35,6 +35,16 @@
 	// parent inheritance from Backbone.APP
 	var parent=function(a,b){a=a||"",b=b||{},this.__inherit=this.__inherit||[];var c=this.__inherit[a]||this._parent||{},d=c.prototype||this.__proto__.constructor.__super__,e=d[a]||function(){delete this.__inherit[a]},f=b instanceof Array?b:[b];return this.__inherit[a]=d._parent||function(){},e.apply(this,f)};
 
+	//
+	var params = View.prototype.params || new Backbone.Model();
+	// no param defaults
+	params.set({});
+	var states = View.prototype.states || new Backbone.Model();
+	// state defaults
+	states.set({
+		'animate': false
+	});
+
 	var Anchor = View.extend({
 
 		name: "anchor",
@@ -62,6 +72,10 @@
 			//"click .scroll-link": "scrollToTarget",
 			//"click": "scrollToTarget" // duplicate event, pick one of the two with options...
 		},
+
+		params: params,
+
+		states: states,
 
 		initialize: function(options){
 			options = options || {};
@@ -177,6 +191,8 @@
 		transitionStart: function( target ){
 			//save target reference
 			this.__target = target;
+			//
+			this.states.set('animate', true);
 			// scrollable target is either defined or
 			this.__$scrollEl = (this.options.scrollEl) ? $(this.options.scrollEl) : $("body");
 			return View.prototype.transitionStart.call(this, target);
@@ -192,6 +208,13 @@
 				// update hash URLs
 				app.navigate(target, false);
 			}
+			// prerequisite
+			if( !this.states.get('animate') ) return;
+			// execute only once...
+			this.states.set('animate', false);
+			// boadcast event
+			this.trigger('transition-end');
+			//
 			return this.parent('transitionEnd', {});
 		},
 
