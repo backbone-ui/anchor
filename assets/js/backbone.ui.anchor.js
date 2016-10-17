@@ -77,8 +77,13 @@
 
 		states: states,
 
+		audio: {},
+
 		initialize: function(options){
+			// fallbacks
 			options = options || {};
+			// bindings
+			_.bindAll(this, 'render', 'pageScroll', 'scrollToTarget');
 			// extend defaults
 			this.options = _.extend({}, this.options, options);
 			// put this in render?
@@ -87,7 +92,11 @@
 				// create a new element
 				$(this.el).appendTo('body');
 			}
-			_.bindAll(this, 'render', 'pageScroll', 'scrollToTarget');
+			// extract audio
+			if( this.options.audio ){
+				this.audio = _.extend({}, this.options.audio);
+				delete this.options.audio;
+			}
 
 			this.options.scrollOffset = ( this.options.scrollOffset ) ? this.options.scrollOffset : window.innerHeight;
 			// scroll event
@@ -96,8 +105,27 @@
 			this.pageScroll();
 			// setup events
 			this.setupEvents();
+			// setup audio
+			this.setupAudio();
 			// continue...
 			return this.parent('initialize', options);
+		},
+
+		setupAudio: function(){
+			// prerequisites
+			if( _.isEmpty(this.audio) ) return;
+			var self = this;
+			//pre-load audio
+			this.aux = new CommonAudio();
+			for( var key in this.audio ){
+				var audio = {};
+				audio[key] = this.audio[key];
+				this.aux.load( audio );
+				// set event
+				this.on(key, function(e){
+					self.aux.play( e.name );
+				});
+			}
 		},
 
 		setupEvents: function( options ){
@@ -195,6 +223,8 @@
 			this.states.set('animate', true);
 			// scrollable target is either defined or
 			this.__$scrollEl = (this.options.scrollEl) ? $(this.options.scrollEl) : $("body");
+			// boadcast event
+			this.trigger('transition-start', { name: "transition-start" });
 			return View.prototype.transitionStart.call(this, target);
 		},
 
@@ -213,7 +243,7 @@
 			// execute only once...
 			this.states.set('animate', false);
 			// boadcast event
-			this.trigger('transition-end');
+			this.trigger('transition-end', { name: "transition-end" });
 			//
 			return this.parent('transitionEnd', {});
 		},
