@@ -133,6 +133,8 @@
 			var scrollLink = this.options.scrollLink || null;
 			var target = (scrollLink) ? " "+ scrollLink : "";
 			this.events['click'+ target] = "scrollToTarget";
+			// force events?
+			//$(target).click( this.scrollToTarget.bind(this) );
 			/*
 			// event trigger
 			var $el = (scrollLink) ? $(this.el).find(scrollLink) : $(this.el);
@@ -232,11 +234,11 @@
 			var target = this.__target;
 			// FIX: Remove any existing hash
 			if( "body" == target && !_.isEmpty(window.location.hash) ){
-				app.navigate("#", false);
+				this._urlChange("#");
 				//window.location.hash = '';
-			} else if(this.options.scrollUpdateHash) {
+			} else if(this.options.scrollUpdateHash){
 				// update hash URLs
-				app.navigate(target, false);
+				this._urlChange(target);
 			}
 			// prerequisite
 			if( !this.states.get('animate') ) return;
@@ -249,6 +251,11 @@
 		},
 
 		// Helpers
+		_urlChange: function( hash ){
+			if( typeof app !== "undefined" ) return app.navigate(hash, false);
+			// fallback
+			window.location.hash = hash;
+		},
 
 		// call methods from the parent
 		parent: View.prototype.parent || parent,
