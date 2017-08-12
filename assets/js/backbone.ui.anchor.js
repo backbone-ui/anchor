@@ -205,17 +205,21 @@
 		},
 
 		transitionPos: function( pos ){
+			pos = pos || false;
 			var $scrollEl = this.__$scrollEl;
+			//
 			if( !pos ){
 				// get
-				var scroll = $scrollEl.scrollTop();
+				pos = $scrollEl.scrollTop();
 				// FIX: retina displays might return fractions...
-				scroll = Math.round(scroll);
-				return scroll;
+				pos = Math.round(pos);
 			} else {
 				//set
+				// FIX: retina displays might return fractions...
+				pos = Math.round(pos);
 				$scrollEl.scrollTop(pos);
 			}
+			return pos;
 		},
 
 		transitionStart: function( target ){
